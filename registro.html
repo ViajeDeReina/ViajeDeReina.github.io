@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html> <!-- pagina de registracion-->
+ <head>
+   <meta charset="utf-8">
+   <title>Registration - Are you sure to give me your precious personal information?!</title>
+ </head>
+ <body>
+   <h1>ARE YOU SURE TO GIVE ME <br>YOUR PRECIOUS PERSONAL INFORMATION?!</h1>
+   <form action="./error.html">
+     <h3>Si quieres registrar a ésta página, llena los blancos abajo.</h3>
+     <fieldset>
+       <legend>Informaciones básicos</legend>
+       <label for="userid">Nombre : </label><input type="text" id="userid" placeholder="Escribe algo"><br>
+       <label for="userpw">Contraseña : </label><input type="password" id="userpw" placeholder="contraseña"><br>
+       <label for="userpw2">Contraseña de nuevo : </label><input type="password" id="userpw2" placeholder="Escribe de nuevo"><br>
+     </fieldset>
+     <br>
+     <fieldset>
+       <legend>더 중요한 사항</legend>
+       <h3>이 홈페이지가 유용하다는 것에 동의하십니까?</h3>
+       네 <input type="radio" name="agree"> 예 <input type="radio" name="agree">  넵 <input type="radio" name="agree"> 넹 <input type="radio" name="agree"><br>
+       <h3>Por favor, selecciona todo lo que acuerdas : </h3>
+       <input type="checkbox" name="sth"> Me gusta esta página.<br>
+       <input type="checkbox" name="sth"> Me interesa mucho esta página.<br>
+       <input type="checkbox" name="sth"> No encuentro nada que me enfade.<br>
+       <input type="checkbox" name="sth"> Creo que la dueña es muy guapa.<br>
+       <input type="checkbox" name="sth"> Quiero saber más de esta página.<br>
+       <br>
+       私はこのページが
+       <select>
+         <option>面白い</option>
+         <option>綺麗だ</option>
+         <option>良い</option>
+         <option>素晴らしい</option>
+         <option>素敵だ</option>
+       </select>と思います。<br>
+     </fieldset>
+     <br>
+     <label for="mensaje">寫文章給女神 : </label><br>
+     <textarea id="mensaje" cols=50 rows=10>自己介紹也可以</textarea><br>
+     <button type="reset">重新寫</button><br>
+     <br>
+     Subir su foto de perfil : <input type="file"><br>
+     <input type="reset"><br>
+     <br>
+     <button type="submit">ENVIAR</button>
+     <br>
+   </form>
+   <br>
+   <a href="./index.html">HOME</a>
+ </body>
+</html>
