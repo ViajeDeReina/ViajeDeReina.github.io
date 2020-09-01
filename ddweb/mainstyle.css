@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+  }
+  header {
+    padding: 10px;
+    text-align: left;
+    background: rgb(63,81,103);
+    color: white;
+  }
+  a:link {color: black; text-decoration: none;}
+  a:visited {color: black; text-decoration: none;}
+  a:hover {text-decoration: none;}
+  section {
+    display: -webkit-flex;
+    display: flex;
+  }
+  /* Left menu bar */
+  nav {
+    width: 200px;
+    text-align: left;
+    float: left;
+    padding-left: 15px;
+    background-color: rgb(178,196,217);
+  }
+  a {
+    position: static;
+    text-align: left;
+    align-items: left;
+    height: 40px;
+    padding: 5px;
+    padding-left: 20px;
+    margin: 0;
+    background-color: rgb(178,196,217);
+  }
+  a.menu1:hover {
+    background-color: rgb(63,81,103);
+    color: white;
+  }
+  a.menu2:hover {
+    background-color: rgb(63,81,103);
+    color: white;
+  }
+  a.menu3:hover {
+    background-color: rgb(63,81,103);
+    color: white;
+  }
+  a.menu4:hover {
+    background-color: rgb(63,81,103);
+    color: white;
+  }
+
+  article {
+    -webkit-flex: 4;
+    -ms-flex: 4;
+    flex: 4;
+    align-items: center;
+    float: right;
+    padding: 30px;
+    background-color: rgb(234,238,236);
+    padding-left: 20px;
+  }
+
+  article.dashimage {
+    padding: 30px;
+    text-align: center;
+    background-color: rgb(37, 209, 123);
+    color: white;
+  }
+  article.table.log {
+      border: 1px solid black;
+  }
+  .browser{
+    width: 500px;
+    height: 300px;
+    margin: 10px;
+    padding: 5px;
+    padding-left: 20px;
+    background-color: white;
+  }
+  footer {
+    padding: 10px;
+    text-align: center;
+    background: rgb(63,81,103);
+    color: white;
+  }

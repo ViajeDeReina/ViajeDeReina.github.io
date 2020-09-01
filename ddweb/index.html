@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html> <!-- Home : DashBoard-->
+ <head>
+   <meta charset="utf-8">
+   <link rel="stylesheet" href="./mainstyle.css"?after type="text/css" media="screen">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>HSM 장비 모니터링 시스템</title>
+ </head>
+ <body>
+   <header>
+     <h1>HSM Monitoring System</h1>
+   </header>
+   <section>
+     <nav>
+        <h1>MENU</h1>
+        <a class="menu1" href="./dashboard.html"><b>Dashboard</b></a><br>
+        <br>
+        <a class="menu2" href="./log.html"><b>Log</b></a><br>
+        <br>
+        <a class="menu3" href="./settings.html"><b>System Setting</b></a><br>
+        <br>
+        <a class="menu4" href="./index.html"><b>Home</b></a><br>
+     </nav>
+     <article>
+       <h1>Welcome!</h1>
+       We'll add further more on this page.
+       <script>
+        function printClock() {
+            
+            var clock = document.getElementById("clock");            // 출력할 장소 선택
+            var currentDate = new Date();                                     // 현재시간
+            var calendar = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate() // 현재 날짜
+            var amPm = 'AM'; // 초기값 AM
+            var currentHours = addZeros(currentDate.getHours(),2); 
+            var currentMinute = addZeros(currentDate.getMinutes() ,2);
+            
+            if(currentHours >= 12){ // 시간이 12보다 클 때 PM으로 세팅, 12를 빼줌
+              amPm = 'PM';
+            }
+            clock.innerHTML = currentHours+":"+currentMinute+" <span style='font-size:30px;'>"+ amPm+"</span>"; //날짜를 출력해 줌
+            
+            setTimeout("printClock()",1000);         // 1초마다 printClock() 함수 호출
+        }
+        
+        function addZeros(num, digit) { // 자릿수 맞춰주기
+            var zero = '';
+            num = num.toString();
+            if (num.length < digit) {
+              for (i = 0; i < digit - num.length; i++) {
+                zero += '0';
+              }
+            }
+            return zero + num;
+        }
+      </script>
+      <br>
+      <br>
+      <br>
+      <br>
+      <body onload="printClock()">
+        <div style="background-color: rgb(234,238,236); width:300px; height:150px; line-height:150px; color: rgb(63,81,103);font-size:30px; text-align:center;" id="clock">
+        </div>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+     </article>
+   </section>
+
+   <footer>
+     VITEC x Team DD
+   </footer>
+ </body>
+</html>
