@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html> <!-- Register new admin -->
+ <head>
+   <meta charset="utf-8">
+   <link rel="stylesheet" href="./mainstyle.css"?after type="text/css" media="screen">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>HSM 장비 모니터링 시스템</title>
+ </head>
+ <body>
+    <header>
+        <h1>HSM Monitoring System</h1>
+    </header>
+    <section>
+        <nav>
+            <h1>MENU</h1>
+            <a class="menu1" href="./dashboard.html"><b>Dashboard</b></a><br>
+            <br>
+            <a class="menu2" href="./log.html"><b>Log</b></a><br>
+            <br>
+            <a class="menu3" href="./settings.html"><b>System Setting</b></a><br>
+            <br>
+            <a class="menu4" href="./index.html"><b>Home</b></a><br>
+        </nav>
+        <article>
+            <h1>Register new user account</h1>
+            <div class="container">
+                <form action="./settings.html" method="post">
+                    <div class="form-group">
+                        <table>
+                            <tr>
+                                <td>관리자 ID</td>
+                                <td><input type="text" id="adminId" name="adminId"></td>
+                            </tr>
+                            <tr>
+                                <td>비밀번호</td>
+                                <td><input type="password" id="password" name="password"></td>
+                            </tr>
+                            <tr>
+                                <td>이름</td>
+                                <td><input type="text" id="name" name="name"></td>
+                            </tr>
+                            <tr>
+                                <td>부서명</td>
+                                <td><input type="text" id="department" name="department"></td>
+                            </tr>
+                            <tr>
+                                <td>휴대전화</td>
+                                <td><input type="text" id="mobile" name="mobile"></td>
+                            </tr>
+                            <tr>
+                                <td>E-mail</td>
+                                <td><input type="text" id="email" name="email"></td>
+                            </tr>
+                            <tr>
+                                <td>사용 여부</td>
+                                <td><input type="checkbox" id="use" name="use"> 사용</td>
+                            </tr>
+                            <tr>
+                                <td>승인자</td>
+                                <td><input type="text" id="approval" name="approval" placeholder="admin"></td>
+                            </tr>
+                            <tr>
+                                <td>등록 일시</td>
+                                <td><input type="text" id="registeredDate" name="registeredDate"></td>
+                            </tr>
+                        </table>
+                        <!-- 그 외  실제 구현 시 승인한 사람과 승인 날짜는 각각 자동으로 admin / 시스템 시간이 들어갈 수 있게하고 별도 입력 x -->
+                    </div>
+                    <button type="submit">등록</button>
+                </form>
+            </div>
+        </article>
+    </section>
+
+    <footer>
+    VITEC x Team DD
+    </footer>
+</body>
+</html>

@@ -48,6 +48,10 @@
     background-color: rgb(63,81,103);
     color: white;
   }
+  
+  body {
+    height: 100%;
+  }
 
   article {
     -webkit-flex: 4;
@@ -71,7 +75,7 @@
   }
   .browser{
     width: 500px;
-    height: 300px;
+    height: 400px;
     margin: 10px;
     padding: 5px;
     padding-left: 20px;
