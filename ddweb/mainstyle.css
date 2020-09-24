@@ -1,55 +1,64 @@
 * {
     box-sizing: border-box;
   }
-  header {
-    padding: 10px;
-    text-align: left;
-    background: rgb(63,81,103);
-    color: white;
+
+header {
+  padding: 10px;
+  text-align: left;
+  background: rgb(63,81,103);
+  color: white;
+}
+a:link {color: black; text-decoration: none;}
+a:visited {color: black; text-decoration: none;}
+a:hover {text-decoration: none;}
+section {
+  display: -webkit-flex;
+  display: flex;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: rgb(178,196,217);
+  /*position: fixed;*/
+  height: 100%;
+  overflow: auto;
   }
-  a:link {color: black; text-decoration: none;}
-  a:visited {color: black; text-decoration: none;}
-  a:hover {text-decoration: none;}
-  section {
-    display: -webkit-flex;
-    display: flex;
-  }
+  
+li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+  
+li a:hover {
+  background-color: rgb(63,81,103);
+  color: white;
+}
   /* Left menu bar */
-  nav {
+nav {
     width: 200px;
+    height: 100%;
     text-align: left;
     float: left;
     padding-left: 15px;
     background-color: rgb(178,196,217);
-  }
-  a {
-    position: static;
-    text-align: left;
-    align-items: left;
-    height: 40px;
-    padding: 5px;
-    padding-left: 20px;
-    margin: 0;
-    background-color: rgb(178,196,217);
-  }
-  a.menu1:hover {
-    background-color: rgb(63,81,103);
-    color: white;
-  }
-  a.menu2:hover {
-    background-color: rgb(63,81,103);
-    color: white;
-  }
-  a.menu3:hover {
-    background-color: rgb(63,81,103);
-    color: white;
-  }
-  a.menu4:hover {
-    background-color: rgb(63,81,103);
-    color: white;
-  }
+}
+a {
+  position: static;
+  text-align: left;
+  align-items: left;
+  height: 40px;
+  padding: 5px;
+  padding-left: 20px;
+  margin: 0;
+  background-color: rgb(178,196,217);
+}
   
-  body {
+body {
     height: 100%;
   }
 
@@ -62,13 +71,18 @@
     padding: 30px;
     background-color: rgb(234,238,236);
     padding-left: 20px;
+    height:100%;
   }
 
   article.dashimage {
     padding: 30px;
+    position: center;
     text-align: center;
     background-color: rgb(37, 209, 123);
     color: white;
+    width: 50px;
+    height: 50px;
+
   }
   article.table.log {
       border: 1px solid black;
