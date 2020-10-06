@@ -1,79 +1,83 @@
 <!DOCTYPE html>
-<html> <!-- Register new admin -->
- <head>
-   <meta charset="utf-8">
-   <link rel="stylesheet" href="./mainstyle.css"?after type="text/css" media="screen">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>HSM 장비 모니터링 시스템</title>
- </head>
- <body>
-    <header>
-        <h1>HSM Monitoring System</h1>
-    </header>
-    <section>
-        <nav>
-            <h1>MENU</h1><br>
-            <ul class="menus">
-              <li><a class="menu5" href="./index.html"><b>Home</b></a></li>
-              <li><a class="menu1" href="./dashboard.html"><b>Dashboard</b></a></li>
-              <li><a class="menu2" href="./log.html"><b>Log</b></a></li>
-              <li><a class="menu3" href="./settings.html"><b>User Information</b></a></li>
-              <li><a class="menu4" href="./hsminfo.html"><b>HSM information</b></a></li>
-            </ul>
-          </nav>
-        <article>
-            <h1>Register new user account</h1>
-            <div class="container">
-                <form action="./settings.html"><!--실제 사용시에는 form 안에 method="post" 추가할것. 임시 파일에선 삭제.-->
-                    <div class="form-group">
-                        <table>
-                            <tr>
-                                <td>관리자 ID</td>
-                                <td><input type="text" id="adminId" name="adminId"></td>
-                            </tr>
-                            <tr>
-                                <td>비밀번호</td>
-                                <td><input type="password" id="password" name="password"></td>
-                            </tr>
-                            <tr>
-                                <td>이름</td>
-                                <td><input type="text" id="name" name="name"></td>
-                            </tr>
-                            <tr>
-                                <td>부서명</td>
-                                <td><input type="text" id="department" name="department"></td>
-                            </tr>
-                            <tr>
-                                <td>휴대전화</td>
-                                <td><input type="text" id="mobile" name="mobile"></td>
-                            </tr>
-                            <tr>
-                                <td>E-mail</td>
-                                <td><input type="text" id="email" name="email"></td>
-                            </tr>
-                            <tr>
-                                <td>사용 여부</td>
-                                <td><input type="checkbox" id="use" name="use"> 사용</td>
-                            </tr>
-                            <tr>
-                                <td>승인자</td>
-                                <td><input type="text" id="approval" name="approval" placeholder="admin"></td>
-                            </tr>
-                            <tr>
-                                <td>등록 일시</td>
-                                <td><input type="text" id="registeredDate" name="registeredDate"></td>
-                            </tr>
-                        </table>
-                        <!-- 그 외  실제 구현 시 승인한 사람과 승인 날짜는 각각 자동으로 admin / 시스템 시간이 들어갈 수 있게하고 별도 입력 x -->
-                    </div>
-                    <button type="submit">등록</button>
-                </form>
-            </div>
-        </article>
+<html> <!-- New ADMIN registeration -->
+  <head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <link rel="stylesheet" href="./mainstyle.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="./registstyle.css" type="text/css" media="screen">
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>HSM 장비 모니터링 시스템</title>
+  </head>
+  <body>
+  <div class="header">
+    <h4>HSM Monitoring System</h4>
+  </div>
+  <div class="subheader">
+    <div class="clock" id="clock"><script src = "clock.js"></script></div>
+    <div class="headbar2">사용자 {admin} | <a class="logout" href="./login.html">로그아웃</a></div> 
+  </div>
+  <section>
+    <div class="nav">
+      <h4>메뉴</h4>
+      <ul>
+        <li><a href="./index.html"><b>대시보드</b></a></li>
+        <li><a href="./systemlog.html"><b>시스템 로그</b></a></li>
+        <li><a href="./infohsm.html"><b>HSM 정보</b></a></li>
+        <li><a href="./infouser.html"><b>시스템 관리자</b></a></li>
+      </ul>
+    </div>
+    <div class="board" id="userinfo">
+      <h4>시스템 관리자 신규 등록</h4>
+      <div class="registercontainer">
+        <form action="./infouser.html"><!--실제 사용시에는 form 안에 method="post" 추가할것. 임시 파일에선 삭제.-->
+          <table>
+            <tr>
+              <td>관리자 ID</td>
+              <td><input type="text" id="adminId" name="adminId"></td>
+            </tr>
+            <tr>
+              <td>비밀번호</td>
+              <td><input type="password" id="password" name="password"></td>
+            </tr>
+            <tr>
+              <td>비밀번호 확인</td>
+              <td><input type="password" id="password2" name="password2"></td>
+            </tr>
+            <tr>
+              <td>이름</td>
+              <td><input type="text" id="name" name="name"></td>
+            </tr>
+            <tr>
+              <td>부서명</td>
+              <td><input type="text" id="department" name="department"></td>
+            </tr>
+            <tr>
+              <td>휴대전화</td>
+              <td><input type="text" id="mobile" name="mobile"></td>
+            </tr>
+            <tr>
+              <td>E-mail</td>
+              <td><input type="text" id="email" name="email"></td>
+            </tr>
+            <tr>
+              <td>사용 여부</td>
+              <td><input type="checkbox" id="use" name="use"> 사용</td>
+            </tr>
+            <tr>
+              <td>등록자</td>
+              <td><input type="text" id="approval" name="approval" placeholder="admin"></td>
+            </tr>
+            <tr>
+              <td>등록 일시</td>
+              <td><input type="text" id="registeredDate" name="registeredDate"></td>
+            </tr>
+          </table>
+          <!-- 그 외  실제 구현 시 승인한 사람과 승인 날짜는 각각 자동으로 admin / 시스템 시간이 들어갈 수 있게하고 별도 입력 x -->
+          <br>
+          <button class="tablebutton" type="submit">등록</button>
+        </form>
+      </div>
+      </div>
     </section>
-
-    <footer>
-    VITEC x Team DD
-    </footer>
-</body>
+  </body>
 </html>
