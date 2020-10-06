@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html> <!-- User Information -->
+  <head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <link rel="stylesheet" href="./mainstyle_copy.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="./tablestyle.css" type="text/css" media="screen">
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>HSM 장비 모니터링 시스템</title>
+ </head>
+ <body>
+  <div class="header">
+    <h4>HSM Monitoring System</h4>
+  </div>
+  <div class="subheader">
+    <div class="clock" id="clock"><script src = "clock.js"></script></div>
+    <div class="headbar2">사용자 {admin} | <a class="logout" href="./login.html">로그아웃</a></div> 
+  </div>
+  <section>
+    <div class="nav">
+      <h4>메뉴</h4>
+      <ul>
+        <li><a href="./index.html"><b>대시보드</b></a></li>
+        <li><a href="./systemlog.html"><b>시스템 로그</b></a></li>
+        <li><a href="./infohsm.html"><b>HSM 정보</b></a></li>
+        <li><a href="./infouser.html"><b>시스템 관리자</b></a></li>
+      </ul>
+    </div>
+    <div class="board" id="userinfo">
+      <h4>시스템 관리자 정보</h4>
+      <div class="searchbar">
+        <form action="./infouser.html">
+          <table class="searchform">
+            <tr>
+              <td><label for="adminid">관리자 ID </label><input type="text" id="hsmtype" name="hsmtype"></td>
+              <td><label for="adminname">이름 </label><input type="text" id="hsmip" name="hsmip"></td>
+              <td><label for="useornot">사용 여부 </label>
+                <select id="useornot" name="useornot">
+                  <option>사용</option>
+                  <option>사용 중지</option>
+                </select>
+              </td>
+              <td><button type="submit" class="tablebutton">조회</button></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <div class="tablecontainer">
+        <form action="./newuser.html"><button type="submit" class="tablebutton" id="register">신규 등록</button></form>
+        <br>
+        <table id="userlist">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>비밀번호</th>
+            <th>이름</th>
+            <th>부서</th>
+            <th>휴대전화</th>
+            <th>E-mail</th>
+            <th>사용 여부</th>
+            <th>승인자</th>
+            <th>등록일시</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>1</td>
+            <td>admin</td>
+            <td>admin1234</td>
+            <td>도예원</td>
+            <td>프로세스선진화팀</td>
+            <td>01012345678</td>
+            <td>anything@bordercollie.com</td>
+            <td>사용중</td>
+            <td>admin</td>
+            <td>2020-09-24</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>admin2</td>
+            <td>admin1234</td>
+            <td>안형준</td>
+            <td>CTO</td>
+            <td>01098765432</td>
+            <td>another@bordercollie.com</td>
+            <td>사용중</td>
+            <td>admin</td>
+            <td>2020-09-24</td>
+          </tr>	
+          </tbody>
+        </table>
+      </div>
+    </div>
+   </section>
+ </body>
+</html>

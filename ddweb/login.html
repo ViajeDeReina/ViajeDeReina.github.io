@@ -2,29 +2,30 @@
 <!-- 세로 정렬 위치 가운데 relative 될 수 있게 수정할 것-->
 <html> <!-- LOG IN Page-->
  <head>
-   <meta charset="utf-8">
+   <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="./loginstyle.css">
    <title>HSM 장비 모니터링 시스템 관리자 로그인</title>
   </head>
   <body>
-    <div>
-      <h3><b>Monitoring System Sign In</b></h3>
-      <br>
-      <form action="./index.html" method="post">
-        <table style="width:100%; text-align: left;">
-          <tr>
-            <td>ID</td>
-            <td><input type="text"></td>
-          </tr>
-          <tr>
-            <td>Password</td>
-            <td><input type="password"></td>
-          </tr>
-        </table>
-        <br>
-        <br>
-      <button class="login_button" type="submit"><b>Sign In</b></a>
-    </form>
+    <div class="container">
+      <div class="login">
+        <h3><b>HSM 모니터링 시스템 로그인</b></h3>
+        <form action="./index.html" method="post">
+          <table class="idpw">
+            <tr>
+              <td>ID</td>
+              <td><input type="text"></td>
+            </tr>
+            <tr>
+              <td>Password</td>
+              <td><input type="password"></td>
+            </tr>
+          </table>
+          <br>
+          <br>
+          <button class="login_button" type="submit"><b>Sign In</b></a>
+        </form>
+      </div>
     </div>
   </body>
 </html>

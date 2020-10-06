@@ -1,0 +1,57 @@
+/* dashboard screen */
+
+#dashboard {
+    display: grid;
+    padding: 15px;
+    grid-gap: 15px;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: column;
+    grid-template-areas:
+      "title title"
+      "hsm hsm"
+      "graph1 graph2"
+      "tamper tamper"
+  }
+  
+  @media (max-width: 500px) {
+    #dashboard {
+      grid-template-columns: 1fr;
+      grid-auto-flow: column;
+      grid-template-areas:
+        "title"
+        "hsm"
+        "graph1"
+        "graph2"
+        "tamper"
+    }
+  }
+  
+  /* Each items */
+  .article {
+    background: white;
+    color: rgb(2, 48, 71);
+    padding: 15px;
+    box-shadow: 0 0 4px  rgba(0,0,0,0.2);
+  }
+  
+  .subtitle {
+    grid-area: title;
+  }
+  
+  .hsm {
+    grid-area: hsm;
+  }
+  
+  .graph1 {
+    grid-area: graph1;
+    display: grid;
+  }
+  
+  .graph2 {
+    grid-area: graph2;
+    display: grid;
+  }
+  
+  .tamper {
+    grid-area: tamper;
+  }

@@ -1,0 +1,45 @@
+table {
+    font-size: 13px;
+    width: 100%;
+}
+
+thead {
+    background: rgb(33, 158, 188);
+    color: white;
+    font-weight: normal;
+}
+
+#log {
+    display: grid;
+    grid-gap: 15px;
+}
+
+.searchbar {
+    display: grid;
+    background: white;
+    margin: 0;
+    padding: 15px;
+    color: black;
+    font-size: 14px;
+}
+
+.searchform {
+    width: 100%;
+}
+
+.tablebutton {
+    background: rgb(33,158,188);
+    color: white;
+    border: none;
+    width: 100px;
+    height: 25px;
+}
+
+#register {
+    position: left;
+}
+
+.tablecontainer {
+    background: white;
+    padding: 15px;
+}

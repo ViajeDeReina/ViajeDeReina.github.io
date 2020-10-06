@@ -2,12 +2,22 @@
     box-sizing: border-box;
   }
 
-header {
-  padding: 10px;
+.header {
+  padding: 5px;
   text-align: left;
-  background: rgb(63,81,103);
+  background: rgb(2, 48, 71);
   color: white;
+  padding-left: 20px;
 }
+.subheader {
+  text-align: left;
+  padding: 2px;
+  background: rgb(142, 202, 230);
+  color: black;
+  font-size: 13px;
+  padding-left: 15px;
+}
+
 a:link {color: black; text-decoration: none;}
 a:visited {color: black; text-decoration: none;}
 a:hover {text-decoration: none;}
@@ -15,13 +25,16 @@ section {
   display: -webkit-flex;
   display: flex;
 }
-
+.menu h3 {
+  padding: 10px;
+}
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   width: 200px;
-  background-color: rgb(178,196,217);
+  background-color: rgb(33, 158, 188);
+  color: white;
   /*position: fixed;*/
   height: 100%;
   overflow: auto;
@@ -29,14 +42,14 @@ ul {
   
 li a {
   display: block;
-  color: #000;
-  padding: 8px 16px;
+  color: white;
   text-decoration: none;
+  padding: 10px;
 }
   
 li a:hover {
-  background-color: rgb(63,81,103);
-  color: white;
+  background-color: rgb(255, 183, 3);
+  color: black;
 }
   /* Left menu bar */
 nav {
@@ -44,18 +57,8 @@ nav {
     height: 100%;
     text-align: left;
     float: left;
-    padding-left: 15px;
-    background-color: rgb(178,196,217);
-}
-a {
-  position: static;
-  text-align: left;
-  align-items: left;
-  height: 40px;
-  padding: 5px;
-  padding-left: 20px;
-  margin: 0;
-  background-color: rgb(178,196,217);
+    color: white;
+    background-color: rgb(33, 158, 188);
 }
   
 body {
