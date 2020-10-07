@@ -74,7 +74,9 @@
           </table>
           <!-- 그 외  실제 구현 시 승인한 사람과 승인 날짜는 각각 자동으로 admin / 시스템 시간이 들어갈 수 있게하고 별도 입력 x -->
           <br>
-          <button class="tablebutton" type="submit">등록</button>
+          <script src="notauthourized.js"></script>
+          <button onClick="alerting()" class="tablebutton">등록</button>
+          <!-- 기능 구현 완료된 후 스크립트 수정 필요. 버튼 타입 섭밋 type="submit" 으로 수정.-->
         </form>
       </div>
       </div>
