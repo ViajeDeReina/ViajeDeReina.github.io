@@ -53,7 +53,7 @@
             </tr>
             <tr>
               <td>휴대전화</td>
-              <td><input type="text" id="mobile" name="mobile"></td>
+              <td><input type="text" id="mobile" name="mobile" placeholder="-없이 숫자만 입력"></td>
             </tr>
             <tr>
               <td>E-mail</td>
@@ -64,12 +64,12 @@
               <td><input type="checkbox" id="use" name="use"> 사용</td>
             </tr>
             <tr>
-              <td>등록자</td>
-              <td><input type="text" id="approval" name="approval" placeholder="admin"></td>
+              <td>등록자</td><!-- as default-->
+              <td><input type="text" id="approval" name="approval" value="admin" readonly></td>
             </tr>
             <tr>
               <td>등록 일시</td>
-              <td><input type="text" id="registeredDate" name="registeredDate"></td>
+              <td><input type="text" id="registeredDate" name="registeredDate"><script src = "createinput.js"></script></td>
             </tr>
           </table>
           <!-- 그 외  실제 구현 시 승인한 사람과 승인 날짜는 각각 자동으로 admin / 시스템 시간이 들어갈 수 있게하고 별도 입력 x -->
