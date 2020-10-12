@@ -14,7 +14,14 @@
   </div>
   <div class="subheader">
     <div class="clock" id="clock"><script src = "clock.js"></script></div>
-    <div class="headbar2">사용자 {admin} | <a class="logout" href="./login.html">로그아웃</a></div> 
+    <div class="headbar2">
+      <!-- logout button-->
+      <form th:action="@{/logout}" method="POST">
+        사용자 {admin} |
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <button id="logout" type="submit">로그아웃</button>
+      </form>
+    </div>
   </div>
   <section>
     <div class="nav">

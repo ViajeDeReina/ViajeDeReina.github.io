@@ -30,6 +30,11 @@
   padding: 2px;
 }
 
+#logout {
+  background: none;
+  border: none;
+  font-size: 13px;
+}
 
 a {text-decoration: none;}
 a:link {text-decoration: none;}

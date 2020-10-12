@@ -14,7 +14,14 @@
   </div>
   <div class="subheader">
     <div class="clock" id="clock"><script src = "clock.js"></script></div>
-    <div class="headbar2">사용자 {admin} | <a class="logout" href="./login.html">로그아웃</a></div> 
+    <div class="headbar2">
+      <!-- logout button-->
+      <form th:action="@{/logout}" method="POST">
+        사용자 {admin} |
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <button id="logout" type="submit">로그아웃</button>
+      </form>
+    </div>
   </div>
   <section>
     <div class="nav">
@@ -29,7 +36,7 @@
     <div class="board" id="userinfo">
       <h4>시스템 관리자 신규 등록</h4>
       <div class="registercontainer">
-        <form action="./infouser.html"><!--실제 사용시에는 form 안에 method="post" 추가할것. 임시 파일에선 삭제.-->
+        <form onsubmit="return checkbeforesubmit();" action="./infouser.html"><!--실제 사용시에는 form 안에 method="post" 추가할것. 임시 파일에선 삭제.-->
           <table>
             <tr>
               <td>관리자 ID</td>
@@ -41,7 +48,13 @@
             </tr>
             <tr>
               <td>비밀번호 확인</td>
-              <td><input type="password" id="password2" name="password2"></td>
+              <td id="pwcheck2">
+                <script src="registrations.js">
+                </script>
+                <input onchange="ifsamepw()" type="password" id="password2" name="password2">
+                <br>
+                <span id="pwcomment"> </span>
+              </td>
             </tr>
             <tr>
               <td>이름</td>
@@ -72,10 +85,9 @@
               <td><input type="text" id="registeredDate" name="registeredDate" readonly><script src = "createinput.js"></script></td>
             </tr>
           </table>
-          <!-- 그 외  실제 구현 시 승인한 사람과 승인 날짜는 각각 자동으로 admin / 시스템 시간이 들어갈 수 있게하고 별도 입력 x -->
           <br>
-          <script src="notauthourized.js"></script>
-          <button onClick="alerting()" class="tablebutton">등록</button>
+          <script src="registration.js"></script>
+          <button class="tablebutton" type="submit">등록</button>
           <!-- 기능 구현 완료된 후 스크립트 수정 필요. 버튼 타입 섭밋 type="submit" 으로 수정.-->
         </form>
       </div>

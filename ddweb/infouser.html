@@ -14,7 +14,14 @@
   </div>
   <div class="subheader">
     <div class="clock" id="clock"><script src = "clock.js"></script></div>
-    <div class="headbar2">사용자 {admin} | <a class="logout" href="./login.html">로그아웃</a></div> 
+    <div class="headbar2">
+      <!-- logout button-->
+      <form th:action="@{/logout}" method="POST">
+        사용자 {admin} |
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <button id="logout" type="submit">로그아웃</button>
+      </form>
+    </div> 
   </div>
   <section>
     <div class="nav">
@@ -32,8 +39,8 @@
         <form action="./infouser.html">
           <table class="searchform">
             <tr>
-              <td><label for="adminid">관리자 ID </label><input type="text" id="hsmtype" name="hsmtype"></td>
-              <td><label for="adminname">이름 </label><input type="text" id="hsmip" name="hsmip"></td>
+              <td><label for="adminid">관리자 ID </label><input type="text" id="adminid" name="adminid"></td>
+              <td><label for="adminname">이름 </label><input type="text" id="adminname" name="adminname"></td>
               <td><label for="useornot">사용 여부 </label>
                 <select id="useornot" name="useornot">
                   <option>사용</option>
