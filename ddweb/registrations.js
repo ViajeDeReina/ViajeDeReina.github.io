@@ -77,6 +77,26 @@ function hsmcheckbeforesubmit() {
     }
 }
 
+function diff_pw() {
+    alert("동일한 비밀번호를 입력해주세요.");
+}
+
+function ifsamepw() {
+    var pw1 = document.getElementById('password').value;
+    var pw2 = document.getElementById('password2').value;
+    var comment = " ";
+    if (pw2 != pw1) {
+        comment = "동일한 비밀번호를 입력해주세요.";
+        document.getElementById('pwcomment').innerHTML = comment;
+        return 0;
+    }
+    else if (pw2 == pw1) {
+        comment = " ";
+        document.getElementById('pwcomment').innerHTML = comment;
+        return 1;
+    }
+}
+
 // function checkbeforesubmit() {
 
 //     var adminId = document.getElementById("adminId").value;
@@ -224,23 +244,3 @@ function hsmcheckbeforesubmit() {
 //         return 1;
 //     }
 // }
-
-function diff_pw() {
-    alert("동일한 비밀번호를 입력해주세요.");
-}
-
-function ifsamepw() {
-    var pw1 = document.getElementById('password').value;
-    var pw2 = document.getElementById('password2').value;
-    var comment = " ";
-    if (pw2 != pw1) {
-        comment = "동일한 비밀번호를 입력해주세요.";
-        document.getElementById('pwcomment').innerHTML = comment;
-        return 0;
-    }
-    else if (pw2 == pw1) {
-        comment = " ";
-        document.getElementById('pwcomment').innerHTML = comment;
-        return 1;
-    }
-}
