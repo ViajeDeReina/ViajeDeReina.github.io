@@ -1,4 +1,48 @@
 emojicheck();
+hsmstatcheck();
+tampercheck();
+
+function hsmstatcheck() {
+    var hsmstattxt = document.getElementById("hsmstattxt").innerHTML;
+    var hsmstatemoji = document.getElementById("hsmstatemoji");
+    var hsmstatdetail = document.getElementById("hsmstatdetail");
+
+    if (hsmstattxt == "Unavaliable") {
+        hsmstatemoji.innerHTML = "🟡";
+        hsmstatdetail.innerHTML = "접속 오류가 발생했습니다."
+    }
+    else if (hsmstattxt == "Online") {
+        hsmstatemoji.innerHTML = "🟢";
+        hsmstatdetail.innerHTML = "정상적으로 연결되었습니다."
+    }
+    else if (hsmstattxt == "Offline") {
+        hsmstatemoji.innerHTML = "⚫";
+        hsmstatdetail.innerHTML = "연결이 끊어졌습니다."
+    }
+    else {
+        hsmstatemoji.innerHTML = "🚩";
+        hsmstatdetail.innerHTML = "SECURE???"
+    }
+}
+
+function tampercheck() {
+    var tampertxt = document.getElementById("tampertxt").innerHTML;
+    var tamperemoji = document.getElementById("tamperemoji");
+    var tamperdetail = document.getElementById("tamperdetail");
+
+    if (tampertxt == "Temper") {
+        tamperemoji.innerHTML = "🟡";
+        tamperdetail.innerHTML = "오류가 발생했습니다. {error_code}"
+    }
+    else if (tampertxt == "Ok") {
+        tamperemoji.innerHTML = "🟢";
+        tamperdetail.innerHTML = "장비가 정상적으로 작동하고 있습니다."
+    }
+    else if (hsmstattxt == "Unknown") {
+        tamperemoji.innerHTML = "🚩";
+        tamperdetail.innerHTML = "알 수 없는 문제가 발생했습니다."
+    }
+}
 
 function emojicheck() {
     var statname = document.getElementById("statname").innerHTML;

@@ -8,10 +8,9 @@
     grid-auto-flow: column;
     grid-template-areas:
       "title title"
-      "hsm hsm"
+      "hsm tamper"
       "graph1 graph2"
       "recenterror recenterror"
-      "tamper tamper"
 }
   
 @media (max-width: 500px) {
@@ -43,7 +42,7 @@
 .hsm {
   grid-area: hsm;
 }
-  
+
 .graph1 {
   grid-area: graph1;
   display: grid;
@@ -53,7 +52,46 @@
   grid-area: graph2;
   display: grid;
 }
-  
+
+/* HSM STAT */
+.hsmstattable {
+  width: 100%;
+  border: 0;
+  margin: 0;
+  text-align: left;
+}
+
+#hsmstatemoji {
+  font-size: 30px;
+}
+
+#hsmstattxt {
+  font-size : 20px;
+  font-weight: bold;
+}
+
+/* TAMPER STAT */
+
+.tamper {
+  grid-area: tamper;
+}
+
+.tampertable {
+  width: 100%;
+  border: 0;
+  margin: 0;
+  text-align: left;
+}
+
+#tamperemoji {
+  font-size: 30px;
+}
+
+#tampertxt {
+  font-size : 20px;
+  font-weight: bold;
+}
+
 /* RECENT PROBLEMS */
 .recenterror {
   grid-area: recenterror;
@@ -75,12 +113,15 @@
   grid-area: emoji;
   font-size: 70px;
   padding: 20px;
+  align-items: center;
+  justify-items: center;
 }
 #statname {
   grid-area: statname;
   padding: 0;
   margin: 0;
   justify-items: end;
+  font-weight: bold;
 }
 
 #stattime {
@@ -94,8 +135,4 @@
   grid-area: statdetail;
   justify-items: start;
   padding-top: 10px;
-}
-
-.tamper {
-  grid-area: tamper;
 }
