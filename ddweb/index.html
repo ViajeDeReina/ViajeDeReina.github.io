@@ -17,8 +17,8 @@
     <div class="clock" id="clock"><script src = "clock.js"></script></div>
     <div class="headbar2">
       <!-- logout button-->
-      <form th:action="@{/logout}" method="POST">
-        사용자 {admin} |
+      <form action="./login.html" method="POST">
+        사용자 admin |
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         <button id="logout" type="submit">로그아웃</button>
       </form>
@@ -61,7 +61,7 @@
       <div class="article graph1">
         CPU 사용량<br>
         <br>
-        <canvas id="myChart1" width="450" height="350"></canvas>
+        <canvas id="myChart1" width="450" height="300"></canvas>
           <script>
             var ctx = document.getElementById('myChart1');
             var myChart = new Chart(ctx, {
@@ -91,6 +91,9 @@
                 },
                 options: {
                   responsive: true,
+                  legend: {
+                    display: false
+                  },
                   scales: {
                     yAxes: [{
                       ticks: {
@@ -105,7 +108,7 @@
       <div class="article graph2">
         거래량<br>
         <br>
-        <canvas id="myChart2" width="450" height="350"></canvas>
+        <canvas id="myChart2" width="450" height="300"></canvas>
         <script>
           var ctx = document.getElementById('myChart2');
           var myChart = new Chart(ctx, {
@@ -135,6 +138,9 @@
               },
               options: {
                 responsive: true,
+                legend: {
+                    display: false
+                },
                 scales: {
                   yAxes: [{
                     ticks: {
