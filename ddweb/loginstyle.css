@@ -2,6 +2,10 @@ a:link {text-decoration: none;}
 a:visited {text-decoration: none;}
 a:hover {text-decoration: none;}
 
+* {
+  font-family: 'Nanum Gothic Coding', monospace;
+}
+
 body {
   background: rgb(238, 247, 251);
 }

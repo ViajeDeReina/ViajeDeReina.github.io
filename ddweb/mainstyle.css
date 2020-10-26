@@ -1,5 +1,9 @@
 
 /* Header */
+* {
+  font-family: 'Nanum Gothic Coding', monospace;
+}
+
 .header {
   padding: 5px;
   text-align: left;

@@ -1,4 +1,8 @@
 /* dashboard screen */
+* {
+  font-family: 'Nanum Gothic Coding', monospace;
+}
+
 
 #dashboard {
     display: grid;
