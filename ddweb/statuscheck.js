@@ -21,7 +21,7 @@ function hsmstatcheck() {
     }
     else {
         hsmstatemoji.innerHTML = "🚩";
-        hsmstatdetail.innerHTML = "SECURE???"
+        hsmstatdetail.innerHTML = "보안 문제가 있습니다."
     }
 }
 
@@ -32,10 +32,10 @@ function tampercheck() {
 
     if (tampertxt == "Temper") {
         tamperemoji.innerHTML = "🟡";
-        tamperdetail.innerHTML = "오류가 발생했습니다. {error_code}"
+        tamperdetail.innerHTML = "오류가 발생했습니다."
     }
     else if (tampertxt == "Ok") {
-        tamperemoji.innerHTML = "🟢";
+        tamperemoji.innerHTML = "🌞";
         tamperdetail.innerHTML = "장비가 정상적으로 작동하고 있습니다."
     }
     else if (hsmstattxt == "Unknown") {
@@ -50,8 +50,8 @@ function emojicheck() {
     var statdetail = document.getElementById("statdetail");
 
     if (statname == "Unavailable") {
-        emoji.innerHTML = "⛔";
-        statdetail.innerHTML = "서버와의 접속이 끊어지지 않게 주의하세요.";
+        emoji.innerHTML = "🟢";
+        statdetail.innerHTML = "장비 관리가 적절히 수행되고 있습니다.";
     }
     else if (statname == "TempOutOfRange") {
         emoji.innerHTML = "⛔";
@@ -60,7 +60,6 @@ function emojicheck() {
     else if (statname == "BatteryLow") {
         emoji.innerHTML = "🔋";
         statdetail.innerHTML = "배터리가 부족하지 않게, 배터리의 상태를 자주 점검해주세요.";
-        
     }
     else if (statname == "EraseButtonPressed") {
         emoji.innerHTML = "⛔";

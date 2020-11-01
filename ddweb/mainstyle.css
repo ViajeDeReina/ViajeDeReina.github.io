@@ -84,6 +84,18 @@ section {
   font-size: 14px;
 }
 
+.navmenu img:last-child {
+  display:none;
+}
+
+.navmenu:hover img:first-child {
+  display:none;
+}
+
+.navmenu:hover img:last-child {
+  display:inline;
+}
+
 .nav a:hover {
   color: black;
   background-color: rgb(255,183,3)

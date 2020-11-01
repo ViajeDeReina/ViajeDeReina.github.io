@@ -28,10 +28,10 @@
     <div class="nav">
       <h4>메뉴</h4>
       <ul>
-        <li><a href="./index.html"><b>대시보드</b></a></li>
-        <li><a href="./systemlog.html"><b>시스템 로그</b></a></li>
-        <li><a href="./infohsm.html"><b>HSM 정보</b></a></li>
-        <li><a href="./infouser.html"><b>시스템 관리자</b></a></li>
+        <li><a class="navmenu" href="./index.html"><img src="./imgs/dashboard_white.png" width=30 /><img src="./imgs/dashboard_black.png" width=30 /><b> 대시보드</b></a></li>
+        <li><a class="navmenu" href="./systemlog.html"><img src="./imgs/syslog_white.png" width=25 /><img src="./imgs/syslog_black.png" width=25 /><b> 시스템 로그</b></a></li>
+        <li><a class="navmenu" href="./infohsm.html"><img src="./imgs/info_white.png" width=30 /><img src="./imgs/info_black.png" width=30 /><b> HSM 정보</b></a></li>
+        <li><a class="navmenu" href="./infouser.html"><img src="./imgs/admin_white.png" width=30 /><img src="./imgs/admin_black.png" width=30 /><b> 시스템 관리자</b></a></li>
       </ul>
     </div>
     <div class="board" id="dashboard">
@@ -51,7 +51,7 @@
         <table class="tampertable">
           <tr>
             <td rowspan="2" style="width:130px">이상 상태 감지</td>
-            <td><span id="tamperemoji"></span><span id="tampertxt">Temper</span></td>
+            <td><span id="tamperemoji"></span><span id="tampertxt">Ok</span></td>
           </tr>
           <tr>
             <td><span id="tamperdetail"></span></td>
@@ -61,7 +61,7 @@
       <div class="article graph1">
         CPU 사용량<br>
         <br>
-        <canvas id="myChart1" width="450" height="300"></canvas>
+        <canvas id="myChart1" width="450" height="250"></canvas>
           <script>
             var ctx = document.getElementById('myChart1');
             var myChart = new Chart(ctx, {
@@ -108,7 +108,7 @@
       <div class="article graph2">
         거래량<br>
         <br>
-        <canvas id="myChart2" width="450" height="300"></canvas>
+        <canvas id="myChart2" width="450" height="250"></canvas>
         <script>
           var ctx = document.getElementById('myChart2');
           var myChart = new Chart(ctx, {
@@ -156,8 +156,8 @@
       <div class="article recenterror">
         <div id="stattitle">최근 시스템 문제 발생 분석<br></div>
         <div class="emoji" id="emoji"></div>
-        <div class="statname" id="statname">Unavailable</div>
-        <div class="stattime" id="stattime">발생 일시 : {yyyy-mm-dd hh:mm:ss}</div>
+        <div class="statname" id="statname">SecurityProcessorWatchdog</div>
+        <div class="stattime" id="stattime">발생 일시 : 2020-10-31 16:43</div>
         <div class="statdetail" id="statdetail"></div>
       </div>
       <script src="statuscheck.js"></script>
