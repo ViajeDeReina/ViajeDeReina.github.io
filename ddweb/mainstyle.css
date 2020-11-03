@@ -84,15 +84,22 @@ section {
   font-size: 14px;
 }
 
-.navmenu img:last-child {
-  display:none;
+.navmenu img {
+  display:inline-block;
+  position: relative;
 }
 
-.navmenu:hover img:first-child {
+.navmenu .img-top {
   display:none;
+  z-index: 99;
 }
 
-.navmenu:hover img:last-child {
+.navmenu:hover .img-org {
+  display:none;
+  z-index: -1;
+}
+
+.navmenu:hover .img-top {
   display:inline;
 }
 
