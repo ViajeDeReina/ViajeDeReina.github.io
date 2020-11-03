@@ -87,20 +87,24 @@ section {
 .navmenu img {
   display:inline-block;
   position: relative;
+  vertical-align: middle;
 }
 
 .navmenu .img-top {
   display:none;
   z-index: 99;
+  vertical-align: middle;
 }
 
 .navmenu:hover .img-org {
   display:none;
   z-index: -1;
+  vertical-align: middle;
 }
 
 .navmenu:hover .img-top {
   display:inline;
+  vertical-align: middle;
 }
 
 .nav a:hover {
