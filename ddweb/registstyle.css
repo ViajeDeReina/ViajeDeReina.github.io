@@ -20,6 +20,10 @@ input {
     width: 200px;
 }
 
+#use {
+    width: 30px;
+}
+
 .tablebutton {
     background: rgb(33,158,188);
     color: white;
