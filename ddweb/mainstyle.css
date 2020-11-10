@@ -133,6 +133,20 @@ section {
   .board {
     font-size: 13px;
   }
+  [aria-expanded="false"] .open {
+    display: grid;
+  }
+  [aria-expanded="false"] .close {
+    display: none;
+  }
+
+  [aria-expanded="true"] .close {
+    display: inline-block;
+  }
+
+  [aria-expanded="true"] .open {
+    display: none;
+  }
 }
 
 

@@ -27,10 +27,11 @@
         "tamper"
         "graph1"
         "graph2"
-        "recenterror"
+        "recenterror";
+      position: relative;
   }
   .mainstats {
-    width: 90px;
+    width: 100px;
   }
 }
 
