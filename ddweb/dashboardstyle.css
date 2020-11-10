@@ -28,7 +28,16 @@
         "graph1"
         "graph2"
         "recenterror"
-    }
+  }
+  .mainstats {
+    width: 90px;
+  }
+}
+
+@media screen and (min-width: 501px) {
+  .mainstats {
+    width: 130px;
+  }
 }
   
 /* Each items */
