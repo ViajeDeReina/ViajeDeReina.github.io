@@ -16,7 +16,7 @@
       "graph1 graph2"
       "recenterror recenterror"
 }
-  
+
 @media (max-width: 500px) {
   #dashboard {
       grid-template-columns: 1fr;
@@ -28,8 +28,10 @@
         "graph1"
         "graph2"
         "recenterror"
-
     }
+  .nav {
+    display: none;
+  }
 }
   
 /* Each items */
