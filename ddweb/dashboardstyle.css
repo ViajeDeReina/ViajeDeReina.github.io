@@ -50,11 +50,13 @@
 .graph1 {
   grid-area: graph1;
   display: grid;
+  position: relative;
 }
   
 .graph2 {
   grid-area: graph2;
   display: grid;
+  position: relative;
 }
 
 /* HSM STAT */
