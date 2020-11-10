@@ -11,7 +11,14 @@
  </head>
  <body>
   <div class="header">
-    <h4>HSM Monitoring System</h4>
+    <h4>
+      <script src = "mobilemenu.js"></script>
+      <button id="mobilemenu" aria-expanded="false" aria-controls="nav">
+        <span class="open">☰</span>
+        <span class="close">×</span>
+      </button>
+      HSM Monitoring System
+    </h4>
   </div>
   <div class="subheader">
     <div class="clock" id="clock"><script src = "clock.js"></script></div>
@@ -85,7 +92,7 @@
       <div class="article graph1">
         CPU 사용량<br>
         <br>
-        <canvas id="myChart1" width="450" height="250"></canvas>
+        <canvas id="myChart1"></canvas>
           <script>
             var ctx = document.getElementById('myChart1');
             var myChart = new Chart(ctx, {
@@ -132,7 +139,7 @@
       <div class="article graph2">
         거래량<br>
         <br>
-        <canvas id="myChart2" width="450" height="250"></canvas>
+        <canvas id="myChart2"></canvas>
         <script>
           var ctx = document.getElementById('myChart2');
           var myChart = new Chart(ctx, {

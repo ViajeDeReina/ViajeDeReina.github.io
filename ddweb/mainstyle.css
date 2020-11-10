@@ -118,3 +118,28 @@ section {
   padding: 15px;
   grid-gap: 15px;
 }
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+  .nav {
+    display: none;
+  }
+  #mobilemenu {
+    color: white;
+    background-color:rgb(2, 48, 71);
+    border: none;
+  }
+}
+
+
+
+@media screen and (min-width: 501px) {
+  #mobilemenu {
+    display: none;
+  }
+}
+
+[aria-controls="nav"] {
+  display: none;
+}
