@@ -12,11 +12,29 @@
  <body>
   <div class="header">
     <h4>
-      <script src = "mobilemenu.js"></script>
-      <button id="mobilemenu" aria-expanded="false" aria-controls="nav">
-        <span class="open">☰</span>
-        <span class="close">×</span>
-      </button>
+      <!-- MOBILE ONLY ! -->
+      <div class="mobile_nav">
+        <a href="javascript:void(0)" id="open" class="open">☰</a>
+        <div class="dropdownmenu">
+          <a href="./index.html">
+            <img src="./imgs/dashboard_white.png" class="img-org" width=30 />
+            <b> 대시보드</b>
+          </a>
+          <a href="./systemlog.html">
+            <img src="./imgs/syslog_white.png" class="img-org" width=25 />
+            <b> 시스템 로그</b>
+          </a>
+          <a href="./infohsm.html">
+            <img src="./imgs/info_white.png" class="img-org" width=30 />
+            <b> HSM 정보</b>
+          </a>
+          <a href="./infouser.html">
+            <img src="./imgs/admin_white.png" class="img-org" width=30 />
+            <b> 시스템 관리자</b>
+          </a>
+        </div>
+      </div>
+        <!-- TILL HERE ! -->
       HSM Monitoring System
     </h4>
   </div>

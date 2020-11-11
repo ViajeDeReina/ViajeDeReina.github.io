@@ -2,6 +2,7 @@
 /* Header */
 * {
   font-family: 'Nanum Gothic Coding', monospace;
+  box-sizing: border-box;
 }
 
 .header {
@@ -125,38 +126,46 @@ section {
   .nav {
     display: none;
   }
-  #mobilemenu {
+  #open {
     color: white;
-    background-color:rgb(2, 48, 71);
-    border: none;
+    display: inline-block;
   }
   .board {
     font-size: 13px;
   }
-  [aria-expanded="false"] .open {
-    display: grid;
-  }
-  [aria-expanded="false"] .close {
-    display: none;
-  }
 
-  [aria-expanded="true"] .close {
+  .mobile_nav {
     display: inline-block;
   }
 
-  [aria-expanded="true"] .open {
+  .dropdownmenu {
     display: none;
+    position: absolute;
+    min-width: 200px;
+    background-color: rgb(33, 158, 188);
+    z-index:1;
+  }
+  .dropdownmenu a {
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    text-align: left;
+    color: white;
+    background-color: rgb(33, 158, 188);
+    text-decoration: none;
+    z-index:1;
+  }
+  .open:hover .dropdownmenu{
+    display: block;
   }
 }
-
-
 
 @media screen and (min-width: 501px) {
-  #mobilemenu {
+  #open {
     display: none;
   }
-}
-
-[aria-controls="nav"] {
-  display: none;
+  .mobile_nav {
+    display: none;
+  }
 }
