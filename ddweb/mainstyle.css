@@ -128,7 +128,7 @@ section {
   }
   #open {
     color: white;
-    display: inline-block;
+    display: block;
   }
   .board {
     font-size: 13px;
@@ -139,13 +139,15 @@ section {
   }
 
   .dropdownmenu {
-    display: none;
+    visibility: hidden;
+    float: left;
+    opacity: 0;
     position: absolute;
     min-width: 200px;
     background-color: rgb(33, 158, 188);
     z-index:1;
   }
-  .dropdownmenu a {
+  .dropdownmenu > li > a {
     display: block;
     margin: 0;
     padding: 0;
@@ -156,8 +158,9 @@ section {
     text-decoration: none;
     z-index:1;
   }
-  .open:hover .dropdownmenu{
-    display: block;
+  .mobile_nav > #open:hover .dropdownmenu{
+    opacity: 1;
+    visibility: visible;
   }
 }
 
