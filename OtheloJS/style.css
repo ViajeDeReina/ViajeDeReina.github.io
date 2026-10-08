@@ -1,0 +1,117 @@
+* { box-sizing: border-box; }
+
+/* 기본값 = 모바일 기준 (작은 화면). 큰 화면은 파일 맨 아래 미디어 쿼리에서 덮어씀 */
+:root {
+  --board-size: min(94vw, 62vh, 480px);
+  --title-size: 1.5rem;
+  --font-size: 15px;
+}
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-size: var(--font-size);
+  touch-action: manipulation; /* 더블탭 확대 방지 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1e2a2f;
+  color: #eee;
+  font-family: "Malgun Gothic", sans-serif;
+}
+main { text-align: center; padding: 12px 8px; width: 100%; }
+h1 { margin: 0 0 8px; font-size: var(--title-size); }
+.scoreboard { display: flex; justify-content: center; gap: 24px; margin-bottom: 8px; }
+.score { display: flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 6px; }
+.score.active { background: rgba(255,255,255,.15); }
+.dot { width: 18px; height: 18px; border-radius: 50%; display: inline-block; }
+.dot.black, .disc.black { background: radial-gradient(circle at 35% 35%, #666, #000); }
+.dot.white, .disc.white { background: radial-gradient(circle at 35% 35%, #fff, #bbb); }
+#status { height: 26px; margin-bottom: 8px; }
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  width: var(--board-size);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  background: #0a5c36;
+  border: 6px solid #3b2a1a;
+  border-radius: 6px;
+  gap: 2px;
+}
+.cell {
+  background: #0d7a47;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+}
+.cell.valid { cursor: pointer; }
+.cell.valid::after {
+  content: "";
+  width: 22%;
+  height: 22%;
+  border-radius: 50%;
+  background: rgba(255,255,255,.35);
+}
+@media (hover: hover) {
+  .cell.valid:hover { background: #12924f; }
+}
+.cell.last { box-shadow: inset 0 0 0 3px #ffd54a; }
+.disc {
+  width: 82%;
+  height: 82%;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,.5);
+  transition: background .3s;
+}
+.controls {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap; /* 좁은 화면에서는 줄바꿈 */
+  justify-content: center;
+  gap: 10px 16px;
+  align-items: center;
+}
+select, button {
+  font: inherit;
+  padding: 10px 14px; /* 터치하기 좋은 크기 */
+  min-height: 44px;
+  border-radius: 6px;
+  border: none;
+}
+button { background: #2e8b57; color: #fff; cursor: pointer; }
+@media (hover: hover) {
+  button:hover { background: #37a266; }
+}
+
+/* ===== 태블릿 / PC (768px 이상) ===== */
+@media (min-width: 768px) {
+  :root {
+    --board-size: min(66vh, 90vw, 560px);
+    --title-size: 2rem;
+    --font-size: 17px;
+  }
+  main { padding: 24px 16px; }
+  h1 { margin-bottom: 16px; }
+  .scoreboard { gap: 40px; margin-bottom: 12px; }
+  #board { gap: 3px; border-width: 8px; }
+  .controls { margin-top: 20px; }
+  select, button { padding: 8px 16px; min-height: 40px; }
+}
+
+/* ===== 큰 PC 화면 (1200px 이상) ===== */
+@media (min-width: 1200px) {
+  :root { --board-size: min(68vh, 600px); }
+}
+
+/* ===== 가로로 누운 모바일 (높이가 낮은 화면) ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+  :root { --board-size: min(78vh, 90vw); --title-size: 1.1rem; }
+  main { padding: 6px; }
+  h1 { display: none; }
+  .scoreboard, #status { margin-bottom: 4px; }
+  .controls { margin-top: 6px; }
+}

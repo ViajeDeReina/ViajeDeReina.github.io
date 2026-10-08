@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>오셀로</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>오셀로</h1>
+  <div class="scoreboard">
+    <div class="score" id="score-black"><span class="dot black"></span><span id="name-black">플레이어</span> <b id="count-black">2</b></div>
+    <div class="score" id="score-white"><span class="dot white"></span><span id="name-white">컴퓨터</span> <b id="count-white">2</b></div>
+  </div>
+  <div id="status">당신의 차례입니다</div>
+  <div id="board"></div>
+  <div class="controls">
+    <label>난이도
+      <select id="difficulty">
+        <option value="easy">쉬움</option>
+        <option value="normal" selected>보통</option>
+        <option value="hard">어려움</option>
+        <option value="master">최고급</option>
+      </select>
+    </label>
+    <label>내 돌
+      <select id="side">
+        <option value="black" selected>흑 (선공)</option>
+        <option value="white">백 (후공)</option>
+      </select>
+    </label>
+    <button id="restart">다시 시작</button>
+  </div>
+</main>
+<script src="game.js"></script>
+</body>
+</html>
