@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<title>정보처리기사 문제풀이</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{
+  --bg:#f4f5f7; --card:#fff; --text:#1c1f26; --muted:#6b7280; --line:#e2e5ea;
+  --accent:#2563eb; --ok:#16a34a; --ok-bg:#e8f7ee; --bad:#dc2626; --bad-bg:#fdeaea; --box:#f1f5fb;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#111318; --card:#1b1e26; --text:#e8eaef; --muted:#9aa1ae; --line:#2c303b;
+    --accent:#6ea0ff; --ok:#4ade80; --ok-bg:#16301f; --bad:#f87171; --bad-bg:#3a1c1e; --box:#222733;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111318; --card:#1b1e26; --text:#e8eaef; --muted:#9aa1ae; --line:#2c303b;
+  --accent:#6ea0ff; --ok:#4ade80; --ok-bg:#16301f; --bad:#f87171; --bad-bg:#3a1c1e; --box:#222733;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  padding:0 16px calc(24px + env(safe-area-inset-bottom));max-width:720px;margin:0 auto}
+header{position:sticky;top:0;background:var(--bg);padding:12px 0 8px;z-index:5}
+.row{display:flex;gap:8px;align-items:center}
+select,button{font:inherit;color:var(--text)}
+select{flex:1;min-width:0;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+#subject{flex:2}
+.icon-btn{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 12px;cursor:pointer}
+.stats{font-size:13px;color:var(--muted);margin-top:8px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 16px;margin-top:8px}
+.meta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px;margin-bottom:8px}
+.star{border:0;background:none;font-size:26px;line-height:1;cursor:pointer;color:var(--muted);padding:0 4px}
+.star.on{color:#f59e0b}
+.q{font-weight:600;font-size:17px;white-space:pre-wrap;margin:0 0 12px}
+.box{background:var(--box);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0 0 12px;white-space:pre-wrap;font-size:15px}
+.imgs img{max-width:100%;height:auto;border-radius:8px;display:block;margin:0 0 12px;background:#fff}
+.choice{display:flex;gap:10px;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);
+  border-radius:12px;padding:12px;margin:0 0 8px;cursor:pointer}
+.choice .n{flex:none;width:24px;height:24px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:13px;color:var(--muted)}
+.choice.ok{border-color:var(--ok);background:var(--ok-bg)}
+.choice.ok .n{background:var(--ok);color:#fff;border-color:var(--ok)}
+.choice.bad{border-color:var(--bad);background:var(--bad-bg)}
+.choice.bad .n{background:var(--bad);color:#fff;border-color:var(--bad)}
+.choice:disabled{cursor:default;opacity:1}
+.result{font-weight:700;margin:4px 0 8px}
+.result.ok{color:var(--ok)} .result.bad{color:var(--bad)}
+.exp{border-top:1px dashed var(--line);margin-top:10px;padding-top:10px;font-size:15px}
+.exp p{margin:0 0 4px}
+.exp p.h{font-weight:700;margin-top:6px}
+.exp table{border-collapse:collapse;width:100%;margin:6px 0;font-size:14px}
+.exp td{border:1px solid var(--line);padding:6px 8px;vertical-align:top}
+.exp td:first-child{font-weight:600;background:var(--box);white-space:nowrap}
+.exp td.wide{white-space:normal}
+.nav{display:flex;gap:8px;margin-top:12px}
+.nav button{flex:1;padding:14px;border-radius:12px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-weight:600}
+.nav .primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.empty{text-align:center;color:var(--muted);padding:40px 8px}
+dialog{border:1px solid var(--line);border-radius:16px;background:var(--card);color:var(--text);width:min(92vw,520px);padding:16px}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+dialog h3{margin:0 0 8px}
+dialog textarea{width:100%;height:140px;font:12px/1.4 monospace;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);padding:8px}
+dialog .row{margin-top:8px;flex-wrap:wrap}
+dialog small{color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <div class="row">
+    <select id="subject" aria-label="과목"></select>
+    <select id="mode" aria-label="모드">
+      <option value="all">전체</option>
+      <option value="unseen">안 푼 문제</option>
+      <option value="wrong">틀린 문제</option>
+      <option value="star">★ 별표</option>
+    </select>
+    <button class="icon-btn" id="menu" aria-label="메뉴">⋯</button>
+  </div>
+  <div class="stats"><span id="s-pos"></span><span id="s-rec"></span></div>
+</header>
+<main id="main"></main>
+
+<dialog id="dlg">
+  <h3>학습 기록 · 설정</h3>
+  <small>틀린 문제와 별표는 이 기기의 브라우저에만 저장됩니다. 기기를 바꾸거나 브라우저 기록을 지우기 전에 내보내 두세요.</small>
+  <textarea id="data" spellcheck="false"></textarea>
+  <div class="row">
+    <button class="icon-btn" id="copy">복사</button>
+    <button class="icon-btn" id="save">파일로 저장</button>
+    <button class="icon-btn" id="import">붙여넣은 내용 가져오기</button>
+    <input type="file" id="file" accept=".json,application/json" hidden>
+    <button class="icon-btn" id="load">파일 가져오기</button>
+  </div>
+  <div class="row">
+    <button class="icon-btn" id="theme">화면 테마 전환</button>
+    <button class="icon-btn" id="reset-done">푼 기록 초기화</button>
+    <button class="icon-btn" id="close" style="margin-left:auto">닫기</button>
+  </div>
+  <div id="msg" style="margin-top:8px;font-size:13px;color:var(--muted)"></div>
+</dialog>
+
+<script>
+"use strict";
+const KEY = "exam2027.v1";
+const $ = id => document.getElementById(id);
+let Q = [], byKey = {}, queue = [], pos = 0, answered = false;
+
+// ---------- 저장소 ----------
+const blank = () => ({wrong: [], star: [], done: [], subject: "all", mode: "all", theme: ""});
+let S = blank();
+function load() {
+  try { S = Object.assign(blank(), JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) { S = blank(); }
+}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+const has = (list, k) => list.includes(k);
+function toggle(list, k, on) {
+  const i = list.indexOf(k);
+  if (on && i < 0) list.push(k);
+  if (!on && i >= 0) list.splice(i, 1);
+}
+
+// ---------- 큐 ----------
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+function pool() {
+  return Q.filter(q => {
+    if (S.subject !== "all" && q.subject !== S.subject) return false;
+    if (S.mode === "wrong") return has(S.wrong, q.key);
+    if (S.mode === "star") return has(S.star, q.key);
+    if (S.mode === "unseen") return !has(S.done, q.key);
+    return true;
+  });
+}
+function rebuild() { queue = shuffle(pool()); pos = 0; render(); }
+
+// ---------- 렌더링 ----------
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+
+// 해설 행(D~F열)을 문단/표로 변환. 줄바꿈 때문에 쪼개진 셀은 앞 행에 이어붙인다.
+function renderExplanation(rows) {
+  if (!rows.length) return "";
+  const multi = r => r.filter(c => c !== "").length >= 2 || (r.length >= 2 && r[0] === "");
+  const first = rows.findIndex(multi);
+  let last = -1;
+  rows.forEach((r, i) => { if (multi(r)) last = i; });
+  const para = r => (r[0].startsWith("*") ? `<p class="h">${esc(r[0])}</p>` : `<p>${esc(r[0])}</p>`);
+  if (first < 0) return rows.map(r => para(r.length ? r : [""])).join("");
+
+  const join = (a, b) => !b ? a : !a ? b : /-$/.test(a) && /^[a-z]/.test(b) ? a.slice(0, -1) + b : a + " " + b;
+  const unbalanced = s => (s.match(/\(/g) || []).length > (s.match(/\)/g) || []).length;
+  const table = [];
+  for (let i = first; i <= last; i++) {
+    const r = rows[i];
+    const prev = table[table.length - 1];
+    const cont = prev && (r[0] === "" || r[0].startsWith("(") || /-$/.test(prev[0]) || unbalanced(prev[0]));
+    if (cont) r.forEach((c, k) => { prev[k] = join(prev[k] || "", c); });
+    else table.push(r.slice());
+  }
+  const cols = Math.max(...table.map(r => r.length));
+  const tr = r => "<tr>" + Array.from({length: cols}, (_, k) =>
+    `<td${k ? ' class="wide"' : ""}>${esc(r[k] || "")}</td>`).join("") + "</tr>";
+  return rows.slice(0, first).map(r => para(r)).join("") +
+    `<table>${table.map(tr).join("")}</table>` +
+    rows.slice(last + 1).map(r => para(r)).join("");
+}
+
+function render() {
+  const main = $("main");
+  const total = pool().length;
+  $("s-pos").textContent = total ? `${pos + 1} / ${queue.length}` : "0 / 0";
+  $("s-rec").textContent = `푼 문제 ${S.done.filter(k => byKey[k]).length}/${Q.length} · 오답 ${S.wrong.filter(k => byKey[k]).length} · ★ ${S.star.filter(k => byKey[k]).length}`;
+  if (!queue.length) {
+    const msg = {wrong: "틀린 문제가 없습니다.", star: "별표한 문제가 없습니다.", unseen: "모든 문제를 풀었습니다!", all: "문제가 없습니다."}[S.mode];
+    main.innerHTML = `<div class="empty">${msg}</div>`;
+    return;
+  }
+  const q = queue[pos];
+  answered = false;
+  main.innerHTML = `
+  <div class="card">
+    <div class="meta"><span>${esc(q.subject)} · ${q.num}번</span>
+      <button class="star ${has(S.star, q.key) ? "on" : ""}" id="star" aria-label="별표">${has(S.star, q.key) ? "★" : "☆"}</button></div>
+    <p class="q">${esc(q.question)}</p>
+    ${(q.box || []).length ? `<div class="box">${esc(q.box.join("\n"))}</div>` : ""}
+    ${(q.images || []).length ? `<div class="imgs">${q.images.map(s => `<img src="${esc(s)}" alt="문제 이미지">`).join("")}</div>` : ""}
+    <div id="choices">${q.choices.map((c, i) => `<button class="choice" data-i="${i + 1}"><span class="n">${i + 1}</span><span>${esc(c)}</span></button>`).join("")}</div>
+    <div id="after"></div>
+  </div>
+  <div class="nav"><button id="prev">이전</button><button class="primary" id="next">다음 문제</button></div>`;
+  $("star").onclick = () => {
+    const on = !has(S.star, q.key); toggle(S.star, q.key, on); save();
+    $("star").classList.toggle("on", on); $("star").textContent = on ? "★" : "☆"; stats();
+  };
+  document.querySelectorAll(".choice").forEach(b => b.onclick = () => answer(+b.dataset.i));
+  $("prev").onclick = prev; $("next").onclick = next;
+  window.scrollTo(0, 0);
+}
+function stats() {
+  $("s-rec").textContent = `푼 문제 ${S.done.filter(k => byKey[k]).length}/${Q.length} · 오답 ${S.wrong.filter(k => byKey[k]).length} · ★ ${S.star.filter(k => byKey[k]).length}`;
+}
+
+function answer(n) {
+  if (answered) return;
+  answered = true;
+  const q = queue[pos];
+  document.querySelectorAll(".choice").forEach(b => {
+    const i = +b.dataset.i;
+    b.disabled = true;
+    if (i === q.answer) b.classList.add("ok");
+    else if (i === n) b.classList.add("bad");
+  });
+  let head;
+  if (q.answer == null) head = `<div class="result">정답 정보가 없습니다.</div>`;
+  else {
+    const ok = n === q.answer;
+    toggle(S.wrong, q.key, !ok); toggle(S.done, q.key, true); save();
+    head = ok ? `<div class="result ok">정답입니다</div>` : `<div class="result bad">오답 · 정답은 ${q.answer}번</div>`;
+  }
+  const exp = renderExplanation(q.explanation || []);
+  $("after").innerHTML = head + (exp ? `<div class="exp">${exp}</div>` : "");
+  stats();
+}
+
+function next() { if (pos + 1 >= queue.length) { queue = shuffle(pool()); pos = 0; } else pos++; render(); }
+function prev() { if (pos > 0) { pos--; render(); } }
+
+// ---------- 이벤트 ----------
+let tx = null, ty = null;
+document.addEventListener("touchstart", e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, {passive: true});
+document.addEventListener("touchend", e => {
+  if (tx == null || e.target.closest("dialog,table")) return;
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  tx = null;
+  if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 2) dx < 0 ? next() : prev();
+}, {passive: true});
+document.addEventListener("keydown", e => {
+  if (e.target.closest("dialog,select,textarea") || !queue.length) return;
+  if (/^[1-4]$/.test(e.key)) answer(+e.key);
+  else if (e.key === "ArrowRight" || e.key === "Enter") next();
+  else if (e.key === "ArrowLeft") prev();
+});
+
+function fillSubjects() {
+  const subs = [...new Set(Q.map(q => q.subject))];
+  $("subject").innerHTML = `<option value="all">전체 과목 (${Q.length})</option>` +
+    subs.map(s => `<option value="${esc(s)}">${esc(s)} (${Q.filter(q => q.subject === s).length})</option>`).join("");
+  if (S.subject !== "all" && !subs.includes(S.subject)) S.subject = "all";
+  $("subject").value = S.subject; $("mode").value = S.mode;
+}
+$("subject").onchange = e => { S.subject = e.target.value; save(); rebuild(); };
+$("mode").onchange = e => { S.mode = e.target.value; save(); rebuild(); };
+
+// ---------- 기록 내보내기/가져오기 ----------
+const dlg = $("dlg");
+const exportData = () => JSON.stringify({wrong: S.wrong, star: S.star, done: S.done});
+const say = t => { $("msg").textContent = t; };
+$("menu").onclick = () => { $("data").value = exportData(); say(""); dlg.showModal(); };
+$("close").onclick = () => dlg.close();
+$("copy").onclick = async () => {
+  try { await navigator.clipboard.writeText(exportData()); say("복사했습니다."); }
+  catch (e) { $("data").select(); say("선택된 내용을 직접 복사하세요."); }
+};
+$("save").onclick = () => {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([exportData()], {type: "application/json"}));
+  a.download = "exam-progress.json"; a.click();
+};
+function importText(t) {
+  try {
+    const d = JSON.parse(t);
+    for (const k of ["wrong", "star", "done"]) if (Array.isArray(d[k])) d[k].forEach(x => toggle(S[k], x, true));
+    save(); rebuild(); stats(); say("가져왔습니다. (기존 기록과 합쳐졌습니다)");
+  } catch (e) { say("형식이 올바르지 않습니다."); }
+}
+$("import").onclick = () => importText($("data").value);
+$("load").onclick = () => $("file").click();
+$("file").onchange = async e => { const f = e.target.files[0]; if (f) importText(await f.text()); };
+$("reset-done").onclick = () => { if (confirm("푼 기록을 초기화할까요? (오답·별표는 유지)")) { S.done = []; save(); rebuild(); $("data").value = exportData(); } };
+function applyTheme() { if (S.theme) document.documentElement.dataset.theme = S.theme; else delete document.documentElement.dataset.theme; }
+$("theme").onclick = () => {
+  const dark = (S.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark";
+  S.theme = dark ? "light" : "dark"; save(); applyTheme();
+};
+
+// ---------- 시작 ----------
+(async function init() {
+  load(); applyTheme();
+  try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {}
+  try {
+    Q = await (await fetch("questions.json", {cache: "no-cache"})).json();
+  } catch (e) {
+    $("main").innerHTML = `<div class="empty">questions.json을 불러오지 못했습니다.<br>(파일을 직접 열었다면 웹 서버나 GitHub Pages로 접속하세요)</div>`;
+    return;
+  }
+  Q.forEach(q => byKey[q.key] = q);
+  fillSubjects(); rebuild();
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+})();
+</script>
+</body>
+</html>
