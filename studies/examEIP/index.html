@@ -186,7 +186,7 @@ function render() {
   answered = false;
   main.innerHTML = `
   <div class="card">
-    <div class="meta"><span>${esc(q.subject)} · ${q.num}번</span>
+    <div class="meta"><span>${esc(q.subject.replace("-", " "))}${q.chapterNo ? ` · Chapter ${q.chapterNo} ${esc(q.chapterTitle)}` : ""} · ${q.num}번</span>
       <button class="star ${has(S.star, q.key) ? "on" : ""}" id="star" aria-label="별표">${has(S.star, q.key) ? "★" : "☆"}</button></div>
     <p class="q">${esc(q.question)}</p>
     ${(q.box || []).length ? `<div class="box">${esc(q.box.join("\n"))}</div>` : ""}
