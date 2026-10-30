@@ -61,6 +61,10 @@ select{flex:1;min-width:0;padding:8px 10px;border:1px solid var(--line);border-r
 .nav{display:flex;gap:8px;margin-top:12px}
 .nav button{flex:1;padding:14px;border-radius:12px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-weight:600}
 .nav .primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.nav.col{flex-direction:column}
+.nav button:disabled{opacity:.5;cursor:default}
+.done-title{font-size:22px;font-weight:700;text-align:center;margin:8px 0}
+.done-sum{text-align:center;margin:0 0 8px}
 .empty{text-align:center;color:var(--muted);padding:40px 8px}
 dialog{border:1px solid var(--line);border-radius:16px;background:var(--card);color:var(--text);width:min(92vw,520px);padding:16px}
 dialog::backdrop{background:rgba(0,0,0,.5)}
@@ -76,9 +80,8 @@ dialog small{color:var(--muted)}
     <select id="subject" aria-label="과목"></select>
     <select id="mode" aria-label="모드">
       <option value="all">전체</option>
-      <option value="unseen">안 푼 문제</option>
-      <option value="wrong">틀린 문제</option>
-      <option value="star">★ 별표</option>
+      <option value="wrong">오답만</option>
+      <option value="star">★ 별표만</option>
     </select>
     <button class="icon-btn" id="menu" aria-label="메뉴">⋯</button>
   </div>
@@ -99,8 +102,11 @@ dialog small{color:var(--muted)}
   </div>
   <div class="row">
     <button class="icon-btn" id="theme">화면 테마 전환</button>
-    <button class="icon-btn" id="reset-done">푼 기록 초기화</button>
     <button class="icon-btn" id="close" style="margin-left:auto">닫기</button>
+  </div>
+  <div class="row">
+    <button class="icon-btn" id="reset-round">이 범위 진행 초기화</button>
+    <button class="icon-btn" id="reset-all">전체 초기화 (오답·별표 포함)</button>
   </div>
   <div id="msg" style="margin-top:8px;font-size:13px;color:var(--muted)"></div>
 </dialog>
@@ -109,13 +115,16 @@ dialog small{color:var(--muted)}
 "use strict";
 const KEY = "exam2027.v1";
 const $ = id => document.getElementById(id);
-let Q = [], byKey = {}, queue = [], pos = 0, answered = false;
+let Q = [], byKey = {}, R = null, view = "empty", answered = false;
 
 // ---------- 저장소 ----------
-const blank = () => ({wrong: [], star: [], done: [], subject: "all", mode: "all", theme: ""});
+// rounds: 범위("과목|모드")별 한 바퀴 상태 {order: 문제 키 순서, pos: 현재 위치, res: {키: {pick, ok}}}
+const blank = () => ({wrong: [], star: [], done: [], rounds: {}, subject: "all", mode: "all", theme: ""});
 let S = blank();
 function load() {
   try { S = Object.assign(blank(), JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) { S = blank(); }
+  if (S.mode !== "wrong" && S.mode !== "star") S.mode = "all";
+  if (!S.rounds || typeof S.rounds !== "object") S.rounds = {};
 }
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
 const has = (list, k) => list.includes(k);
@@ -135,11 +144,43 @@ function pool() {
     if (S.subject !== "all" && q.subject !== S.subject) return false;
     if (S.mode === "wrong") return has(S.wrong, q.key);
     if (S.mode === "star") return has(S.star, q.key);
-    if (S.mode === "unseen") return !has(S.done, q.key);
     return true;
   });
 }
-function rebuild() { queue = shuffle(pool()); pos = 0; render(); }
+
+// ---------- 한 바퀴(라운드) ----------
+// 범위의 문제를 한 번 섞어 순서를 저장하고, 그 순서대로 한 번씩만 낸다. 앱을 닫아도 이어진다.
+const scopeId = () => S.subject + "|" + S.mode;
+function ensureRound() {
+  const id = scopeId(), keys = pool().map(q => q.key);
+  let r = S.rounds[id];
+  if (!r) {
+    if (!keys.length) return null;
+    r = S.rounds[id] = {order: shuffle(keys.slice()), pos: 0, res: {}};
+    save();
+    return r;
+  }
+  // 엑셀에서 삭제된 문제는 빼고, 전체 모드에서는 새로 생긴 문제를 남은 순서 뒤에 섞어 붙인다.
+  const set = new Set(keys);
+  const keep = k => byKey[k] && (S.mode !== "all" || set.has(k));
+  const before = r.order.slice(0, r.pos).filter(keep).length;
+  r.order = r.order.filter(keep);
+  if (S.mode === "all") {
+    const have = new Set(r.order);
+    r.order.push(...shuffle(keys.filter(k => !have.has(k))));
+  }
+  r.pos = Math.min(before, r.order.length);
+  for (const k of Object.keys(r.res)) if (!r.order.includes(k)) delete r.res[k];
+  if (!r.order.length) { delete S.rounds[id]; save(); return null; }
+  save();
+  return r;
+}
+// 범위/모드를 바꿔 들어올 때: 이미 끝난 오답·별표 바퀴는 새로 시작한다.
+function rebuild() {
+  const r = S.rounds[scopeId()];
+  if (r && S.mode !== "all" && r.pos >= r.order.length) delete S.rounds[scopeId()];
+  render();
+}
 
 // ---------- 렌더링 ----------
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
@@ -174,15 +215,16 @@ function renderExplanation(rows) {
 
 function render() {
   const main = $("main");
-  const total = pool().length;
-  $("s-pos").textContent = total ? `${pos + 1} / ${queue.length}` : "0 / 0";
-  $("s-rec").textContent = `푼 문제 ${S.done.filter(k => byKey[k]).length}/${Q.length} · 오답 ${S.wrong.filter(k => byKey[k]).length} · ★ ${S.star.filter(k => byKey[k]).length}`;
-  if (!queue.length) {
-    const msg = {wrong: "틀린 문제가 없습니다.", star: "별표한 문제가 없습니다.", unseen: "모든 문제를 풀었습니다!", all: "문제가 없습니다."}[S.mode];
+  R = ensureRound();
+  if (!R) {
+    view = "empty"; stats();
+    const msg = {wrong: "틀린 문제가 없습니다.", star: "별표한 문제가 없습니다.", all: "문제가 없습니다."}[S.mode];
     main.innerHTML = `<div class="empty">${msg}</div>`;
     return;
   }
-  const q = queue[pos];
+  if (R.pos >= R.order.length) { view = "result"; stats(); showResult(); return; }
+  view = "q"; stats();
+  const q = byKey[R.order[R.pos]];
   answered = false;
   main.innerHTML = `
   <div class="card">
@@ -194,23 +236,69 @@ function render() {
     <div id="choices">${q.choices.map((c, i) => `<button class="choice" data-i="${i + 1}"><span class="n">${i + 1}</span><span>${esc(c)}</span></button>`).join("")}</div>
     <div id="after"></div>
   </div>
-  <div class="nav"><button id="prev">이전</button><button class="primary" id="next">다음 문제</button></div>`;
+  <div class="nav"><button id="prev">이전</button><button class="primary" id="next">${R.pos + 1 >= R.order.length ? "결과 보기" : "다음 문제"}</button></div>`;
   $("star").onclick = () => {
     const on = !has(S.star, q.key); toggle(S.star, q.key, on); save();
     $("star").classList.toggle("on", on); $("star").textContent = on ? "★" : "☆"; stats();
   };
   document.querySelectorAll(".choice").forEach(b => b.onclick = () => answer(+b.dataset.i));
   $("prev").onclick = prev; $("next").onclick = next;
+  const prevRes = R.res[q.key];
+  if (prevRes) { answered = true; reveal(q, prevRes.pick); }  // 이전에 푼 문제로 돌아온 경우 선택/해설을 다시 보여준다
   window.scrollTo(0, 0);
 }
+// 상단 숫자: 현재 범위의 이번 한 바퀴 진행도
 function stats() {
-  $("s-rec").textContent = `푼 문제 ${S.done.filter(k => byKey[k]).length}/${Q.length} · 오답 ${S.wrong.filter(k => byKey[k]).length} · ★ ${S.star.filter(k => byKey[k]).length}`;
+  const n = R ? R.order.length : 0;
+  $("s-pos").textContent = !n ? "0 / 0" : view === "result" ? `완료 ${n} / ${n}` : `${R.pos + 1} / ${n}`;
+  const res = R ? Object.values(R.res) : [];
+  const ok = res.filter(x => x.ok).length;
+  $("s-rec").textContent = `정답 ${ok} · 오답 ${res.length - ok} · ★ ${S.star.filter(k => byKey[k]).length}`;
+}
+
+function showResult() {
+  const n = R.order.length, vals = R.order.map(k => R.res[k]);
+  const ok = vals.filter(v => v && v.ok).length, bad = vals.filter(v => v && !v.ok).length, skip = n - ok - bad;
+  const wrongLeft = S.wrong.filter(k => byKey[k] && (S.subject === "all" || byKey[k].subject === S.subject)).length;
+  $("main").innerHTML = `
+  <div class="card">
+    <div class="done-title">수고하셨습니다!</div>
+    <p class="done-sum">총 <b>${n}</b>문제 중 정답 <b>${ok}</b> · 오답 <b>${bad}</b>${skip ? ` · 건너뜀 <b>${skip}</b>` : ""}<br>정답률 ${Math.round(ok / n * 100)}%</p>
+    <div class="nav col">
+      <button id="r-wrong" ${wrongLeft ? "" : "disabled"}>${wrongLeft ? `오답만 다시 풀기 (${wrongLeft}문제)` : "남은 오답이 없습니다"}</button>
+      ${skip ? `<button id="r-skip">건너뛴 문제 풀기 (${skip}문제)</button>` : ""}
+      <button class="primary" id="r-again">처음부터 다시 (순서 새로 섞기)</button>
+      <button id="prev">마지막 문제 다시 보기</button>
+    </div>
+  </div>`;
+  $("prev").onclick = prev;
+  $("r-again").onclick = () => { delete S.rounds[scopeId()]; save(); render(); };
+  $("r-wrong").onclick = () => {
+    S.mode = "wrong"; $("mode").value = "wrong";
+    delete S.rounds[scopeId()]; save(); render();
+  };
+  if (skip) $("r-skip").onclick = () => {
+    R.order = [...R.order.filter(k => R.res[k]), ...R.order.filter(k => !R.res[k])];
+    R.pos = n - skip; save(); render();
+  };
+  window.scrollTo(0, 0);
 }
 
 function answer(n) {
   if (answered) return;
   answered = true;
-  const q = queue[pos];
+  const q = byKey[R.order[R.pos]];
+  if (q.answer != null) {
+    const ok = n === q.answer;
+    R.res[q.key] = {pick: n, ok};
+    toggle(S.wrong, q.key, !ok); toggle(S.done, q.key, true); save();
+  }
+  reveal(q, n);
+  stats();
+}
+
+// 선택 결과와 해설을 화면에 표시 (기록은 answer()에서만 한다)
+function reveal(q, n) {
   document.querySelectorAll(".choice").forEach(b => {
     const i = +b.dataset.i;
     b.disabled = true;
@@ -220,17 +308,19 @@ function answer(n) {
   let head;
   if (q.answer == null) head = `<div class="result">정답 정보가 없습니다.</div>`;
   else {
-    const ok = n === q.answer;
-    toggle(S.wrong, q.key, !ok); toggle(S.done, q.key, true); save();
-    head = ok ? `<div class="result ok">정답입니다</div>` : `<div class="result bad">오답 · 정답은 ${q.answer}번</div>`;
+    head = n === q.answer ? `<div class="result ok">정답입니다</div>` : `<div class="result bad">오답 · 정답은 ${q.answer}번</div>`;
   }
   const exp = renderExplanation(q.explanation || []);
   $("after").innerHTML = head + (exp ? `<div class="exp">${exp}</div>` : "");
-  stats();
 }
 
-function next() { if (pos + 1 >= queue.length) { queue = shuffle(pool()); pos = 0; } else pos++; render(); }
-function prev() { if (pos > 0) { pos--; render(); } }
+function next() { if (view === "q") { R.pos++; save(); render(); } }
+function prev() {
+  if (view === "q" && R.pos > 0) R.pos--;
+  else if (view === "result") R.pos = R.order.length - 1;
+  else return;
+  save(); render();
+}
 
 // ---------- 이벤트 ----------
 let tx = null, ty = null;
@@ -242,8 +332,8 @@ document.addEventListener("touchend", e => {
   if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 2) dx < 0 ? next() : prev();
 }, {passive: true});
 document.addEventListener("keydown", e => {
-  if (e.target.closest("dialog,select,textarea") || !queue.length) return;
-  if (/^[1-4]$/.test(e.key)) answer(+e.key);
+  if (e.target.closest("dialog,select,textarea") || !R) return;
+  if (/^[1-4]$/.test(e.key)) { if (view === "q") answer(+e.key); }
   else if (e.key === "ArrowRight" || e.key === "Enter") next();
   else if (e.key === "ArrowLeft") prev();
 });
@@ -262,7 +352,11 @@ $("mode").onchange = e => { S.mode = e.target.value; save(); rebuild(); };
 const dlg = $("dlg");
 const exportData = () => JSON.stringify({wrong: S.wrong, star: S.star, done: S.done});
 const say = t => { $("msg").textContent = t; };
-$("menu").onclick = () => { $("data").value = exportData(); say(""); dlg.showModal(); };
+$("menu").onclick = () => {
+  $("data").value = exportData();
+  say(`누적 오답 ${S.wrong.filter(k => byKey[k]).length}문제 · 별표 ${S.star.filter(k => byKey[k]).length}문제`);
+  dlg.showModal();
+};
 $("close").onclick = () => dlg.close();
 $("copy").onclick = async () => {
   try { await navigator.clipboard.writeText(exportData()); say("복사했습니다."); }
@@ -283,7 +377,15 @@ function importText(t) {
 $("import").onclick = () => importText($("data").value);
 $("load").onclick = () => $("file").click();
 $("file").onchange = async e => { const f = e.target.files[0]; if (f) importText(await f.text()); };
-$("reset-done").onclick = () => { if (confirm("푼 기록을 초기화할까요? (오답·별표는 유지)")) { S.done = []; save(); rebuild(); $("data").value = exportData(); } };
+$("reset-round").onclick = () => {
+  if (!confirm("지금 선택한 과목·모드의 진행 상황을 처음부터 다시 시작할까요? (오답·별표 기록은 유지)")) return;
+  delete S.rounds[scopeId()]; save(); render(); dlg.close();
+};
+$("reset-all").onclick = () => {
+  if (!confirm("모든 진행 상황과 오답·별표 기록을 삭제할까요? 되돌릴 수 없습니다.")) return;
+  S.wrong = []; S.star = []; S.done = []; S.rounds = {}; save(); render();
+  $("data").value = exportData(); say("전체 초기화했습니다.");
+};
 function applyTheme() { if (S.theme) document.documentElement.dataset.theme = S.theme; else delete document.documentElement.dataset.theme; }
 $("theme").onclick = () => {
   const dark = (S.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark";
