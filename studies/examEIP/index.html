@@ -52,12 +52,12 @@ select{flex:1;min-width:0;padding:8px 10px;border:1px solid var(--line);border-r
 .result{font-weight:700;margin:4px 0 8px}
 .result.ok{color:var(--ok)} .result.bad{color:var(--bad)}
 .exp{border-top:1px dashed var(--line);margin-top:10px;padding-top:10px;font-size:15px}
-.exp p{margin:0 0 4px}
+.exp p{margin:0 0 4px;white-space:pre-wrap}
 .exp p.h{font-weight:700;margin-top:6px}
 .exp table{border-collapse:collapse;width:100%;margin:6px 0;font-size:14px}
-.exp td{border:1px solid var(--line);padding:6px 8px;vertical-align:top}
-.exp td:first-child{font-weight:600;background:var(--box);white-space:nowrap}
-.exp td.wide{white-space:normal}
+.exp td{border:1px solid var(--line);padding:6px 8px;vertical-align:top;white-space:pre-wrap}
+.exp td:first-child{font-weight:600;background:var(--box);white-space:pre}
+.exp td.wide{white-space:pre-wrap}
 .nav{display:flex;gap:8px;margin-top:12px}
 .nav button{flex:1;padding:14px;border-radius:12px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-weight:600}
 .nav .primary{background:var(--accent);border-color:var(--accent);color:#fff}
