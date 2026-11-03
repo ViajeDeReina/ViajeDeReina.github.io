@@ -1,0 +1,137 @@
+/* 중장년 대상: 큰 글씨, 큰 버튼, 높은 대비, 색 + 글자로 상태 표시 */
+:root {
+  --fs: 20px;
+  --bg: #f6f5f1;
+  --card: #ffffff;
+  --text: #1a1a1a;
+  --muted: #555;
+  --line: #d6d3cb;
+  --primary: #1f4fbf;
+  --primary-dark: #163a8c;
+  --ok: #1d7a3a;
+  --ok-bg: #e5f4e8;
+  --bad: #c0261c;
+  --bad-bg: #fbe7e5;
+  --star: #b8860b;
+  --radius: 14px;
+}
+html[data-size="1"] { --fs: 24px; }
+html[data-size="2"] { --fs: 28px; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  font-size: var(--fs);
+  line-height: 1.6;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; gap: 8px;
+  min-height: 64px; padding: 8px 16px;
+  background: var(--primary); color: #fff;
+}
+.topbar-title { flex: 1; margin: 0; font-size: 1.05em; font-weight: 700; }
+.topbar-back, .topbar-font {
+  min-height: 48px; padding: 0 14px;
+  background: rgba(255,255,255,.18); border: 2px solid rgba(255,255,255,.6);
+  border-radius: 10px; color: #fff; font-weight: 700; font-size: .85em;
+}
+.topbar-font span { font-size: .8em; margin-left: 2px; }
+
+main { max-width: 640px; margin: 0 auto; padding: 16px 16px 140px; }
+
+/* 공통 카드·버튼 */
+.card {
+  background: var(--card); border: 2px solid var(--line); border-radius: var(--radius);
+  padding: 20px; margin-bottom: 16px;
+}
+.big-btn {
+  display: block; width: 100%; min-height: 64px; margin-bottom: 12px; padding: 14px 18px;
+  border: 2px solid var(--line); border-radius: var(--radius); background: var(--card);
+  text-align: left; font-weight: 700;
+}
+.big-btn small { display: block; font-weight: 400; color: var(--muted); font-size: .8em; }
+.big-btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; text-align: center; }
+.big-btn.primary small { color: #dfe7ff; }
+.big-btn:active { transform: translateY(1px); }
+.section-title { font-size: .9em; color: var(--muted); margin: 24px 4px 10px; font-weight: 700; }
+
+.progress { height: 14px; background: #e4e1d8; border-radius: 7px; overflow: hidden; margin: 10px 0 6px; }
+.progress > div { height: 100%; background: var(--ok); }
+.stat { color: var(--muted); font-size: .85em; }
+
+/* 문제 화면 */
+.q-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.q-count { font-weight: 700; }
+.q-count b { color: var(--primary); font-size: 1.2em; }
+.timer { font-weight: 700; color: var(--bad); }
+.star-btn {
+  min-height: 48px; padding: 0 14px; border: 2px solid var(--line); border-radius: 10px; background: var(--card);
+  font-size: .85em; font-weight: 700;
+}
+.star-btn[aria-pressed="true"] { border-color: var(--star); color: var(--star); background: #fff8e1; }
+.q-subject { font-size: .8em; color: var(--muted); }
+.q-text { font-weight: 700; font-size: 1.05em; margin: 4px 0 16px; }
+.passage {
+  border: 2px solid var(--text); border-radius: 8px; padding: 14px 16px; margin-bottom: 16px;
+  background: #fffdf6; white-space: pre-line;
+}
+.table-wrap { overflow-x: auto; margin-bottom: 16px; }
+table { border-collapse: collapse; width: 100%; font-size: .72em; background: var(--card); }
+th, td { border: 1px solid var(--text); padding: 8px 4px; text-align: center; }
+th { background: #eeebe2; }
+
+.choice {
+  display: flex; gap: 12px; align-items: flex-start; width: 100%; min-height: 64px;
+  margin-bottom: 12px; padding: 14px 16px;
+  border: 3px solid var(--line); border-radius: var(--radius); background: var(--card); text-align: left;
+}
+.choice .num { flex: none; font-weight: 700; font-size: 1.15em; line-height: 1.35; }
+.choice[aria-pressed="true"] { border-color: var(--primary); background: #eaf0ff; }
+.choice.correct { border-color: var(--ok); background: var(--ok-bg); }
+.choice.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.choice .tag { display: block; font-weight: 700; font-size: .85em; margin-top: 4px; }
+.choice.correct .tag { color: var(--ok); }
+.choice.wrong .tag { color: var(--bad); }
+.choice:disabled { cursor: default; color: var(--text); }
+
+.verdict { font-size: 1.3em; font-weight: 800; text-align: center; padding: 14px; border-radius: var(--radius); margin: 4px 0 16px; }
+.verdict.ok { color: var(--ok); background: var(--ok-bg); }
+.verdict.bad { color: var(--bad); background: var(--bad-bg); }
+.explain { white-space: pre-line; }
+.explain h3 { margin: 0 0 8px; font-size: 1em; }
+.notice { font-size: .75em; color: var(--muted); border-top: 1px solid var(--line); margin-top: 14px; padding-top: 10px; }
+.special { background: #fff3cd; border: 2px solid #e0b400; border-radius: 10px; padding: 12px; margin-bottom: 16px; font-weight: 700; }
+
+/* 하단 고정 버튼 */
+.bottom-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+  display: flex; gap: 10px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: var(--card); border-top: 2px solid var(--line);
+}
+.bottom-bar button {
+  flex: 1; min-height: 64px; border-radius: var(--radius); font-weight: 800;
+  border: 2px solid var(--line); background: var(--card);
+}
+.bottom-bar .go { flex: 2; background: var(--primary); border-color: var(--primary); color: #fff; }
+.bottom-bar .go:disabled { background: #9aa9cf; border-color: #9aa9cf; }
+@media (min-width: 672px) { .bottom-bar { padding-left: calc(50% - 304px); padding-right: calc(50% - 304px); } }
+
+/* 결과 */
+.score { text-align: center; }
+.score .big { font-size: 2.6em; font-weight: 800; line-height: 1.2; }
+.pass { color: var(--ok); } .fail { color: var(--bad); }
+.result-list { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.result-list button { min-height: 52px; border-radius: 10px; border: 2px solid var(--line); background: var(--card); font-weight: 700; font-size: .85em; }
+.result-list .r-ok { border-color: var(--ok); color: var(--ok); }
+.result-list .r-bad { border-color: var(--bad); color: var(--bad); background: var(--bad-bg); }
+
+.footer-source { font-size: .7em; color: var(--muted); margin-top: 28px; line-height: 1.5; }
+.empty { text-align: center; color: var(--muted); padding: 40px 0; }
