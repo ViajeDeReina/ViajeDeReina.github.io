@@ -1,5 +1,5 @@
 // 쉬운 자격증 공부 - 화면 프로토타입 (서버 없이 정적 파일 + 브라우저 저장소)
-const DATA_URL = "../data/realtor/2024-35-1-1.json";
+const DATA_URL = "data/realtor/2024-35-1-1.json";
 const STORE_KEY = "easyexam:v1";
 const CIRCLED = ["①", "②", "③", "④", "⑤"];
 const MOCK_MINUTES = 100; // 1차 1교시 시험시간

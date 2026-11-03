@@ -1,6 +1,6 @@
 # 화면 프로토타입
 
-중장년 대상 문제풀이 화면을 빠르게 검증하기 위한 정적 프로토타입입니다. 빌드 도구 없이 HTML/CSS/JS 세 파일로 동작하며, `data/realtor/2024-35-1-1.json`을 읽습니다.
+중장년 대상 문제풀이 화면을 빠르게 검증하기 위한 정적 프로토타입입니다. 빌드 도구 없이 HTML/CSS/JS 세 파일로 동작하며, `data/realtor/2024-35-1-1.json`(이 폴더 기준)을 읽습니다.
 
 ## 실행
 
@@ -10,7 +10,7 @@
 python -m http.server 8080
 ```
 
-브라우저에서 `http://localhost:8080/prototype/` 접속. 휴대폰으로 보려면 같은 와이파이에서 `http://<PC IP>:8080/prototype/`.
+브라우저에서 `http://localhost:8080/silverStudies/` 접속. 휴대폰으로 보려면 같은 와이파이에서 `http://<PC IP>:8080/silverStudies/`.
 
 ## 들어 있는 화면
 
